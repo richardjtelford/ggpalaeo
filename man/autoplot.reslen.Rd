@@ -2,14 +2,14 @@
 % Please edit documentation in R/autoplot.reslen.R, R/plot_analogue_distances.R
 \name{autoplot.reslen}
 \alias{autoplot.reslen}
-\alias{fortify.residLen}
+\alias{fortify.reslen}
 \alias{autoplot.reslen}
 \alias{autoplot.reslen}
 \alias{fortify.residLen}
 \alias{autoplot.residLen}
 \title{ggplot-based plot for objects of class \code{'reslen'}}
 \usage{
-\method{fortify}{residLen}(object, df)
+\method{fortify}{reslen}(object, df)
 
 \method{autoplot}{reslen}(object, df, x_axis, quantiles = c(0.9, 0.95),
   fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",

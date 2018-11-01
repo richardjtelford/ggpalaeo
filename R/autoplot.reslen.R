@@ -34,7 +34,7 @@ NULL
 
 ##' @rdname autoplot.reslen
 ##' @export
-fortify.residLen <- function(object, df){
+fortify.reslen <- function(object, df){
 
   passive <- data_frame(sq_res_len = object$passive)
 
