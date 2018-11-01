@@ -9,7 +9,7 @@
 ##' @param residuals logical, show cross-validated residuals
 ##' @param smooth logical, add smooth to plot
 ##' @export
-##' @importFrom ggplot2 ggplot aes geom_point geom_smooth facet_wrap geom_abline geom_hline coord_equal as_labeller
+##' @importFrom ggplot2 ggplot aes geom_point geom_smooth facet_wrap geom_abline geom_hline coord_equal as_labeller fortify
 ##' @importFrom dplyr data_frame
 ##' @importFrom magrittr %>%
 ##'

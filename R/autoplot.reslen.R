@@ -19,7 +19,7 @@
 ##'
 ##' @export
 ##'
-##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string
+##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify
 ##' @importFrom dplyr filter data_frame
 ##' @importFrom magrittr %>%
 ##' @examples
