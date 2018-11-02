@@ -2,27 +2,24 @@
 % Please edit documentation in R/autoplot.reslen.R, R/plot_analogue_distances.R
 \name{autoplot.reslen}
 \alias{autoplot.reslen}
-\alias{fortify.reslen}
-\alias{autoplot.reslen}
-\alias{autoplot.reslen}
 \alias{fortify.residLen}
 \alias{autoplot.residLen}
+\alias{autoplot.reslen}
+\alias{plot_analogue_distances}
 \title{ggplot-based plot for objects of class \code{'reslen'}}
 \usage{
-\method{fortify}{reslen}(object, df)
-
-\method{autoplot}{reslen}(object, df, x_axis, quantiles = c(0.9, 0.95),
-  fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",
-  "Fair", "Poor"))
-
 \method{fortify}{residLen}(object, df)
 
 \method{autoplot}{residLen}(object, df, x_axis, quantiles = c(0.9, 0.95),
   fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",
   "Fair", "Poor"))
+
+plot_analogue_distances(spp, fos, df, x_axis, quantiles = c(0.05, 0.1),
+  fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",
+  "Fair", "Poor"), ...)
 }
 \arguments{
-\item{object}{an object of class \code{"reslen"}, the result of a call to \code{\link[analogue]{residLen}}}
+\item{object}{an object of class \code{"residLen"}, the result of a call to \code{\link[analogue]{residLen}}}
 
 \item{df}{data.frame containing e.g. ages or depths of samples}
 
@@ -34,7 +31,11 @@
 
 \item{categories}{character; names of residuals length quality categories.}
 
-\item{object}{an object of class \code{"reslen"}, the result of a call to \code{\link[analogue]{residLen}}}
+\item{spp}{data.frame or matrix of calibration set species abundances}
+
+\item{fos}{data.frame or matrix of fossil species abundances}
+
+\item{...}{extra arguments to \code{\link[rioja]{MAT}}. \code{dist.method} is the only relevant one.}
 
 \item{df}{data.frame containing e.g. ages or depths of samples}
 
@@ -55,20 +56,22 @@ Returns a ggplot object.
 Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
 
 Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
+
+
+...
 }
 \examples{
 
 data(ImbrieKipp, SumSST, V12.122, package = "analogue")
 ## squared residual lengths for Core V12.122
 rlens <- residLen(ImbrieKipp, SumSST, V12.122)
-autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age")
-
+autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
+labs(x = "Age", y = "Squared residual distance", fill = "Goodness of fit")
 
 data(ImbrieKipp, SumSST, V12.122, package = "analogue")
 ## squared residual lengths for Core V12.122
 rlens <- residLen(ImbrieKipp, SumSST, V12.122)
 autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age")
-
 }
 \author{
 Richard J. Telford

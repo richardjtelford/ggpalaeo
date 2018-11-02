@@ -6,7 +6,7 @@
 ##' Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
 ##'
 ##'
-##' @param object an object of class \code{"reslen"}, the result of a call to \code{\link[analogue]{residLen}}
+##' @param object an object of class \code{"residLen"}, the result of a call to \code{\link[analogue]{residLen}}
 ##' @param df data.frame containing e.g. ages or depths of samples
 ##' @param x_axis character; name of variable for x-axis. Defaults to sample number.
 ##' @param quantiles numeric; quantiles of the training set residual lengths to plot
@@ -20,21 +20,21 @@
 ##' @export
 ##'
 ##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify
-##' @importFrom dplyr filter data_frame
+##' @importFrom dplyr filter data_frame bind_cols
 ##' @importFrom magrittr %>%
 ##' @examples
 ##'
 ##'data(ImbrieKipp, SumSST, V12.122, package = "analogue")
 ##'## squared residual lengths for Core V12.122
 ##'rlens <- residLen(ImbrieKipp, SumSST, V12.122)
-##'autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age")
-##'
+##'autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
+##'labs(x = "Age", y = "Squared residual distance", fill = "Goodness of fit")
 NULL
 
 
 ##' @rdname autoplot.reslen
 ##' @export
-fortify.reslen <- function(object, df){
+fortify.residLen <- function(object, df){
 
   passive <- data_frame(sq_res_len = object$passive)
 
@@ -53,7 +53,7 @@ fortify.reslen <- function(object, df){
 
 ##' @rdname autoplot.reslen
 ##' @export
-autoplot.reslen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor")){
+autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor")){
 
   if(!length(fill) == length(categories)) {
     stop("Must have the same number of colours in fill as categories")
@@ -69,20 +69,6 @@ autoplot.reslen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill =
 
   goodpoorbad <- filter(x, what == "train")$sq_res_len %>%
     quantile(probs = quantiles)
-  qualitybands <- data_frame(
-    xmin = rep(-Inf, length(categories)),
-    xmax = rep(Inf, length(categories)),
-    ymax = c(goodpoorbad, Inf),
-    ymin = c(-Inf, goodpoorbad),
-    fill = factor(categories, levels = rev(categories))
-  )
 
-  g <- x %>% filter(what == "passive") %>%
-    ggplot(aes_string(x = x_axis, y  = "sq_res_len")) +
-      geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = fill), qualitybands, alpha = .5, inherit.aes = FALSE) +
-      scale_fill_manual(values = fill, name = "Goodness of fit") +
-      geom_point() +
-      ylab("Squared Residual Length")
-  return(g)
+  plot_diagnostics(x = filter(x, what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, quantiles = quantiles, categories = categories)
 }
-
