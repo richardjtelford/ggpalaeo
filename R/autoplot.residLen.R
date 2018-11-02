@@ -1,5 +1,5 @@
-##' @name autoplot.reslen
-##' @rdname autoplot.reslen
+##' @name autoplot.residLen
+##' @rdname autoplot.residLen
 ##' @title ggplot-based plot for objects of class \code{'reslen'}
 ##'
 ##' @description
@@ -32,7 +32,7 @@
 NULL
 
 
-##' @rdname autoplot.reslen
+##' @rdname autoplot.residLen
 ##' @export
 fortify.residLen <- function(object, df){
 
@@ -51,7 +51,7 @@ fortify.residLen <- function(object, df){
   return(passive_train)
 }
 
-##' @rdname autoplot.reslen
+##' @rdname autoplot.residLen
 ##' @export
 autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor")){
 

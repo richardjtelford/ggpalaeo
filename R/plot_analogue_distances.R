@@ -1,5 +1,5 @@
-##' @name autoplot.reslen
-##' @rdname autoplot.reslen
+##' @name plot_analogue_distances
+##' @rdname plot_analogue_distances
 ##' @title ggplot-based plot for analogue distance
 ##'
 ##' @description
