@@ -32,11 +32,12 @@ Returns a ggplot object.
 Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
 }
 \examples{
-
+require("analogue")
+require("ggplot2")
 data(ImbrieKipp, SumSST, V12.122, package = "analogue")
 ## squared residual lengths for Core V12.122
 rlens <- residLen(ImbrieKipp, SumSST, V12.122)
-autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
+autoplot(rlens, df = data.frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
 labs(x = "Age", y = "Squared residual distance", fill = "Goodness of fit")
 }
 \author{

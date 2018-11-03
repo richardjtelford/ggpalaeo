@@ -1,5 +1,6 @@
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @title autoplot for rioja transfer functions
+##' @description Plots of predicted against measured environmental variables for transfer functions made with the rioja package.
 ##' @param object transfer function object from rioja
 ##' @param column character, name of column to plot
 ##' @param npls integer, WAPLS component to plot
@@ -8,49 +9,59 @@
 ##' @param show_apparent logical, show apparent performance as well as cross-validated
 ##' @param residuals logical, show cross-validated residuals
 ##' @param smooth logical, add smooth to plot
+##' @param ... Arguments specific to different models.
+##' @examples
+##' require("rioja")
+##' require("ggplot2")
+##' data(ImbrieKipp, SumSST, V12.122, package = "analogue")
+##' mod <- MAT(ImbrieKipp, SumSST)
+##' autoplot(mod)
 ##' @export
-##' @importFrom ggplot2 ggplot aes geom_point geom_smooth facet_wrap geom_abline geom_hline coord_equal as_labeller fortify
+##' @importFrom ggplot2 ggplot aes_string geom_point geom_smooth facet_wrap geom_abline geom_hline coord_equal as_labeller fortify
 ##' @importFrom dplyr data_frame
+##' @importFrom tidyr gather
 ##' @importFrom magrittr %>%
+##' @importFrom rlang .data
 ##'
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-fortify.WA <- function(object, column = "WA.inv", ...){
-  fortify.tf(object, column, ...)
+fortify.WA <- function(object, column = "WA.inv"){
+  fortify_tf(object, column)
 }
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-fortify.WAPLS <- function(object, npls = 1, ...) {
+fortify.WAPLS <- function(object, npls = 1) {
   column <- paste0("Comp", ifelse(npls > 10, "", "0"), npls)
-  fortify.tf(object, column = column, ...)
+  fortify_tf(object, column = column)
 }
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-fortify.MLRC <- function(object, ...){
-  fortify.tf(object, column = "MLRC", ...)
+fortify.MLRC <- function(object){
+  fortify_tf(object, column = "MLRC")
 }
 
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-fortify.MAT <- function(object, k = 5, weighted = FALSE...){
-  column <- paste0("N", ifelse(k > 10, "", "0"), ifelse(weighed, ".wm", ""))
+fortify.MAT <- function(object, k = 5, weighted = FALSE){
+  column <- paste0("N", ifelse(k > 10, "", "0"), k, ifelse(weighted, ".wm", ""))
   x <- data_frame(
     measured = object$x,
     predicted = object$fitted.values[, column],
-    residuals = predicted - measured
+    residuals = .data$predicted - .data$measured
   )
   if(!is.null(object$predicted)){
      warning("cross-validated MAT results (other than LOO) not extracted")
   }
+  return(x)
 }
 
-##' @rdname autoplot.tf
-##' @export
-fortify.tf <- function(object, column, ...){
+##' @rdname autoplot.WA
+##'
+fortify_tf <- function(object, column){
   x <- data_frame(
     measured = object$x,
     fitted = object$fitted.values[, column]
@@ -69,53 +80,51 @@ fortify.tf <- function(object, column, ...){
 }
 
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-autoplot.WAPLS <- function(object, npls, ...){
-  autoplot.tf(object = object, npls = npls, ...)
+autoplot.WAPLS <- function(object, npls){
+  autoplot_tf(object = object, npls = npls)
 }
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-autoplot.WA <- function(object, ...){
-  autoplot.tf(object = object, ...)
+autoplot.WA <- function(object){
+  autoplot_tf(object = object)
 }
 
-##' @rdname autoplot.tf
+##' @rdname autoplot.WA
 ##' @export
-autoplot.MAT <- function(object, k = 5, weighted = FALSE, ...){
-  autoplot.tf(object = object, k = k, weighted = weighted, ...)
+autoplot.MAT <- function(object, k = 5, weighted = FALSE){
+  autoplot_tf(object = object, k = k, weighted = weighted)
 }
 
-##' @rdname autoplot.tf
-autoplot.MLRC <- function(object, ...){
-  autoplot.tf(object = object, ...)
+##' @rdname autoplot.WA
+autoplot.MLRC <- function(object){
+  autoplot_tf(object = object)
 }
 
-##' @rdname autoplot.tf
-##' @export
-autoplot.tf <- function(object, show_apparent = FALSE, residuals = FALSE, smooth = TRUE, ...){
+##' @rdname autoplot.WA
+##'
+autoplot_tf <- function(object, show_apparent = FALSE, residuals = FALSE, smooth = TRUE, ...){
   x <- fortify(object = object, ...)
 
   if(residuals){
-    g <- ggplot(x, aes(x = measured, y = residuals)) +
+    g <- ggplot(x, aes_string(x = "measured", y = "residuals")) +
       geom_hline(yintercept = 0, colour = "grey50", linetype = "dashed") +
       geom_point()
   } else{
     if(show_apparent){
-     g <- x %>% gather(key = what, value = predicted, -measured) %>%
-       filter(what %in% c("fitted", "predicted")) %>%
-       ggplot(aes(x = measured, y = predicted)) +
+     g <- x %>% gather(key = "what", value = "predicted", -.data$measured) %>%
+       filter(.data$what %in% c("fitted", "predicted")) %>%
+       ggplot(aes_string(x = "measured", y = "predicted")) +
        facet_wrap(~ what, labeller = as_labeller(c(fitted = "Apparent", predicted = "Cross-validated")))
     } else {
-      g <- ggplot(x, aes(x = measured, y = predicted))
+      g <- ggplot(x, aes_string(x = "measured", y = "predicted"))
     }
     g <- g + geom_abline(colour = "grey50", linetype = "dashed") +
       geom_point() +
       coord_equal()
-
   }
-
 
   if(smooth){
     g <- g + geom_smooth(se = FALSE)

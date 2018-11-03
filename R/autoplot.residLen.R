@@ -20,14 +20,16 @@
 ##' @export
 ##'
 ##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify
-##' @importFrom dplyr filter data_frame bind_cols
+##' @importFrom dplyr filter data_frame bind_cols bind_rows n
 ##' @importFrom magrittr %>%
+##' @importFrom stats quantile
 ##' @examples
-##'
+##'require("analogue")
+##'require("ggplot2")
 ##'data(ImbrieKipp, SumSST, V12.122, package = "analogue")
 ##'## squared residual lengths for Core V12.122
 ##'rlens <- residLen(ImbrieKipp, SumSST, V12.122)
-##'autoplot(rlens, df = data_frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
+##'autoplot(rlens, df = data.frame(age = as.numeric(rownames(V12.122))), x_axis = "age") +
 ##'labs(x = "Age", y = "Squared residual distance", fill = "Goodness of fit")
 NULL
 
@@ -67,8 +69,8 @@ autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill
     x_axis <- "n"
   }
 
-  goodpoorbad <- filter(x, what == "train")$sq_res_len %>%
+  goodpoorbad <- filter(x, x$what == "train")$sq_res_len %>%
     quantile(probs = quantiles)
 
-  plot_diagnostics(x = filter(x, what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, categories = categories)
+  plot_diagnostics(x = filter(x, x$what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, categories = categories)
 }

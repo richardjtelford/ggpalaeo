@@ -4,11 +4,14 @@ Version: 0.0.0.9001
 Authors@R: person("Richard", "Telford", email = "richard.telford@uib.no", role = c("aut", "cre"))
 Description: Autoplot functions for a variety of objects made by the rioja and analogue packages.
 Depends: R (>= 3.4.4)
-License: What license is it under?
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Imports: ggplot2,
-    dplyr
-Enhances: rioja,
-    analogue
+    dplyr,
+    rioja,
+    magrittr,
+    tidyr,
+    rlang
+Enhances: analogue

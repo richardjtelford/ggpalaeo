@@ -24,18 +24,19 @@
 ##'
 ##' @export
 ##'
-##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify
-##' @importFrom dplyr data_frame bind_cols mutate
+##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify scale_fill_manual
+##' @importFrom dplyr data_frame bind_cols mutate n
 ##' @importFrom magrittr %>%
 ##' @importFrom rioja MAT
+##' @importFrom stats as.dist quantile predict
 ##'
 ##' @examples
-##'
+##'require("ggplot2")
 ##'data(ImbrieKipp, V12.122, package = "analogue")
 ##'## squared residual lengths for Core V12.122
 ##'AD <- analogue_distances(ImbrieKipp, V12.122)
-##'autoplot(AD)
-##'
+##'autoplot(AD) +
+##'  labs(y = "Squared-chord distance")
 ##' @export
 NULL
 
@@ -55,14 +56,14 @@ analogue_distances <- function(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), .
     mutate(n = 1:n())
 
   res <- list(x = x, goodpoorbad = goodpoorbad, quantiles = quantiles)
-  class(res) <- "analogue_distance"
+  class(res) <- "analogue_distances"
   return(res)
 }
 
 ##' @name analogue_distances
 ##' @rdname analogue_distances
 ##' @export
-autoplot.analogue_distances <- function(object, fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor"), ...){
+autoplot.analogue_distances <- function(object, df, x_axis, fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor"), ...){
 
   x <- object$x
 
@@ -93,8 +94,8 @@ plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad, fill, categories){
   )
 
   g <- ggplot(x, aes_string(x = x_axis, y  = y_axis)) +
-    geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = fill), qualitybands, alpha = .5, inherit.aes = FALSE) +
-    scale_fill_manual(values = fill) +
+    geom_rect(aes_string(xmin = "xmin", xmax = "xmax", ymin = "ymin", ymax = "ymax", fill = "fill"), qualitybands, alpha = .5, inherit.aes = FALSE) +
+    scale_fill_manual(values = fill, name = "Quality") +
     geom_point()
   return(g)
 }

@@ -9,7 +9,7 @@
 \usage{
 analogue_distances(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), ...)
 
-\method{autoplot}{analogue_distances}(object, fill = c("salmon",
+\method{autoplot}{analogue_distances}(object, df, x_axis, fill = c("salmon",
   "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor"), ...)
 }
 \arguments{
@@ -41,12 +41,12 @@ Calculate and plot the distance to nearest analogue.
 ...
 }
 \examples{
-
+require("ggplot2")
 data(ImbrieKipp, V12.122, package = "analogue")
 ## squared residual lengths for Core V12.122
 AD <- analogue_distances(ImbrieKipp, V12.122)
-autoplot(AD)
-
+autoplot(AD) +
+ labs(y = "Squared-chord distance")
 }
 \author{
 Richard J. Telford

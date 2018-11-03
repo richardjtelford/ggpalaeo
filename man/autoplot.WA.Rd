@@ -5,33 +5,33 @@
 \alias{fortify.WAPLS}
 \alias{fortify.MLRC}
 \alias{fortify.MAT}
-\alias{fortify.tf}
+\alias{fortify_tf}
 \alias{autoplot.WAPLS}
 \alias{autoplot.WA}
 \alias{autoplot.MAT}
 \alias{autoplot.MLRC}
-\alias{autoplot.tf}
+\alias{autoplot_tf}
 \title{autoplot for rioja transfer functions}
 \usage{
-\method{fortify}{WA}(object, column = "WA.inv", ...)
+\method{fortify}{WA}(object, column = "WA.inv")
 
-\method{fortify}{WAPLS}(object, npls = 1, ...)
+\method{fortify}{WAPLS}(object, npls = 1)
 
-\method{fortify}{MLRC}(object, ...)
+\method{fortify}{MLRC}(object)
 
-\method{fortify}{MAT}(object, k = 5, weighted = FALSE...)
+\method{fortify}{MAT}(object, k = 5, weighted = FALSE)
 
-\method{fortify}{tf}(object, column, ...)
+fortify_tf(object, column)
 
-\method{autoplot}{WAPLS}(object, npls, ...)
+\method{autoplot}{WAPLS}(object, npls)
 
-\method{autoplot}{WA}(object, ...)
+\method{autoplot}{WA}(object)
 
-\method{autoplot}{MAT}(object, k = 5, weighted = FALSE, ...)
+\method{autoplot}{MAT}(object, k = 5, weighted = FALSE)
 
-\method{autoplot}{MLRC}(object, ...)
+\method{autoplot}{MLRC}(object)
 
-\method{autoplot}{tf}(object, show_apparent = FALSE, residuals = FALSE,
+autoplot_tf(object, show_apparent = FALSE, residuals = FALSE,
   smooth = TRUE, ...)
 }
 \arguments{
@@ -50,4 +50,16 @@
 \item{residuals}{logical, show cross-validated residuals}
 
 \item{smooth}{logical, add smooth to plot}
+
+\item{...}{Arguments specific to different models.}
+}
+\description{
+Plots of predicted against measured environmental variables for transfer functions made with the rioja package.
+}
+\examples{
+require("rioja")
+require("ggplot2")
+data(ImbrieKipp, SumSST, V12.122, package = "analogue")
+mod <- MAT(ImbrieKipp, SumSST)
+autoplot(mod)
 }
