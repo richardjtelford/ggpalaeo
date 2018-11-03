@@ -3,7 +3,7 @@
 ##' @title ggplot-based plot for analogue distance
 ##'
 ##' @description
-##' Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
+##' Calculate and plot the distance to nearest analogue.
 ##'
 ##'
 ##' ...
@@ -41,6 +41,7 @@ NULL
 
 ##' @name analogue_distances
 ##' @rdname analogue_distances
+##' @export
 analogue_distances <- function(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), ...){
 
   mod <- MAT(y = spp, x = rep(1, nrow(spp)), lean = FALSE, ...)
@@ -60,6 +61,7 @@ analogue_distances <- function(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), .
 
 ##' @name analogue_distances
 ##' @rdname analogue_distances
+##' @export
 autoplot.analogue_distances <- function(object, fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor"), ...){
 
   x <- object$x

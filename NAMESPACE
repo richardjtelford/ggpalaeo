@@ -3,6 +3,7 @@
 S3method(autoplot,MAT)
 S3method(autoplot,WA)
 S3method(autoplot,WAPLS)
+S3method(autoplot,analogue_distances)
 S3method(autoplot,residLen)
 S3method(autoplot,tf)
 S3method(fortify,MAT)

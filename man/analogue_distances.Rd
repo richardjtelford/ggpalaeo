@@ -35,7 +35,7 @@ analogue_distances(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), ...)
 Returns a ggplot object.
 }
 \description{
-Produces a ggplot object representing the output of objects produced by \code{\link[analogue]{residLen}}.
+Calculate and plot the distance to nearest analogue.
 
 
 ...
