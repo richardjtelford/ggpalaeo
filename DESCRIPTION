@@ -1,6 +1,6 @@
 Package: ggpalaeo
 Title: ggplot2 Plots For analogue and rioja Packages
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("Richard", "Telford", email = "richard.telford@uib.no", role = c("aut", "cre"))
 Description: Autoplot functions for a variety of objects made by the rioja and analogue packages.
 Depends: R (>= 3.4.4)
