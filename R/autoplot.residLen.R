@@ -70,5 +70,5 @@ autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill
   goodpoorbad <- filter(x, what == "train")$sq_res_len %>%
     quantile(probs = quantiles)
 
-  plot_diagnostics(x = filter(x, what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, quantiles = quantiles, categories = categories)
+  plot_diagnostics(x = filter(x, what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, categories = categories)
 }

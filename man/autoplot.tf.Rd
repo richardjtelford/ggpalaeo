@@ -13,25 +13,25 @@
 \alias{autoplot.tf}
 \title{autoplot for rioja transfer functions}
 \usage{
-fortify.WA(object, column = "WA.inv", ...)
+\method{fortify}{WA}(object, column = "WA.inv", ...)
 
-fortify.WAPLS(object, npls = 1, ...)
+\method{fortify}{WAPLS}(object, npls = 1, ...)
 
-fortify.MLRC(object, ...)
+\method{fortify}{MLRC}(object, ...)
 
-fortify.MAT(object, k = 5, weighted = FALSE...)
+\method{fortify}{MAT}(object, k = 5, weighted = FALSE...)
 
-fortify.tf(object, column, ...)
+\method{fortify}{tf}(object, column, ...)
 
-autoplot.WAPLS(object, npls, ...)
+\method{autoplot}{WAPLS}(object, npls, ...)
 
-autoplot.WA(object, ...)
+\method{autoplot}{WA}(object, ...)
 
-autoplot.MAT(object, k = 5, weighted = FALSE, ...)
+\method{autoplot}{MAT}(object, k = 5, weighted = FALSE, ...)
 
-autoplot.MLRC(object, ...)
+\method{autoplot}{MLRC}(object, ...)
 
-autoplot.tf(object, show_apparent = FALSE, residuals = FALSE,
+\method{autoplot}{tf}(object, show_apparent = FALSE, residuals = FALSE,
   smooth = TRUE, ...)
 }
 \arguments{
