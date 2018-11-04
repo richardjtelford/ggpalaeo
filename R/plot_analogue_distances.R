@@ -76,7 +76,7 @@ autoplot.analogue_distances <- function(object, df, x_axis, fill = c("salmon", "
   plot_diagnostics(x = x, x_axis = x_axis, y_axis = "minD", goodpoorbad = object$goodpoorbad, fill = fill, categories = categories)
 }
 
-plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad, fill, categories){
+plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad, fill = c("salmon", "lightyellow", "skyblue"), categories){
 
   if(!length(fill) == length(categories)) {
     stop("Must have the same number of colours in fill as categories")
