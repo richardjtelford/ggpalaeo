@@ -23,13 +23,13 @@
 
 fortify_tf(object, column)
 
-\method{autoplot}{WAPLS}(object, npls)
+\method{autoplot}{WAPLS}(object, npls, ...)
 
-\method{autoplot}{WA}(object)
+\method{autoplot}{WA}(object, ...)
 
-\method{autoplot}{MAT}(object, k = 5, weighted = FALSE)
+\method{autoplot}{MAT}(object, k = 5, weighted = FALSE, ...)
 
-\method{autoplot}{MLRC}(object)
+\method{autoplot}{MLRC}(object, ...)
 
 autoplot_tf(object, show_apparent = FALSE, residuals = FALSE,
   smooth = TRUE, ...)
@@ -45,13 +45,13 @@ autoplot_tf(object, show_apparent = FALSE, residuals = FALSE,
 
 \item{weighted}{logical, plot weighted MAT results?}
 
+\item{...}{Arguments specific to different models.}
+
 \item{show_apparent}{logical, show apparent performance as well as cross-validated}
 
 \item{residuals}{logical, show cross-validated residuals}
 
 \item{smooth}{logical, add smooth to plot}
-
-\item{...}{Arguments specific to different models.}
 }
 \description{
 Plots of predicted against measured environmental variables for transfer functions made with the rioja package.

@@ -82,25 +82,25 @@ fortify_tf <- function(object, column){
 
 ##' @rdname autoplot.WA
 ##' @export
-autoplot.WAPLS <- function(object, npls){
-  autoplot_tf(object = object, npls = npls)
+autoplot.WAPLS <- function(object, npls, ...){
+  autoplot_tf(object = object, npls = npls, ...)
 }
 
 ##' @rdname autoplot.WA
 ##' @export
-autoplot.WA <- function(object){
-  autoplot_tf(object = object)
+autoplot.WA <- function(object, ...){
+  autoplot_tf(object = object, ...)
 }
 
 ##' @rdname autoplot.WA
 ##' @export
-autoplot.MAT <- function(object, k = 5, weighted = FALSE){
-  autoplot_tf(object = object, k = k, weighted = weighted)
+autoplot.MAT <- function(object, k = 5, weighted = FALSE, ...){
+  autoplot_tf(object = object, k = k, weighted = weighted, ...)
 }
 
 ##' @rdname autoplot.WA
-autoplot.MLRC <- function(object){
-  autoplot_tf(object = object)
+autoplot.MLRC <- function(object, ...){
+  autoplot_tf(object = object, ...)
 }
 
 ##' @rdname autoplot.WA
