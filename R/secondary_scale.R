@@ -41,6 +41,7 @@ secondary.scale <- function(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE, xLef
   plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r", ylim = ylim)
   axis(side = 2, at = agedepth$y, labels = agedepth$x, las= 2, xpd = NA)
   mtext(ylabel2, side = 2, line = 2.5, cex = cex.ylabel2)
+  par("fig" = orig.fig) #reset "fig"
 }
 
 

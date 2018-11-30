@@ -101,7 +101,7 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRigh
   }
   pos <- rep(pos, length(x.name.pos))
   text(x.name.pos, pos, labels = x.names, adj = c(0, 0.5), srt = srt.xlabel, cex = cex.xlabel, xpd = NA)
-
+  par("fig" = orig.fig) #reset "fig"
   invisible()
 }
 
