@@ -15,5 +15,8 @@ Imports: ggplot2,
     tidyr,
     rlang,
     RColorBrewer,
-    tidyverse
+    tidyverse,
+    ggrepel,
+    palaeoSig,
+    fields
 Enhances: analogue
