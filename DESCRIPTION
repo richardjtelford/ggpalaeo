@@ -19,8 +19,9 @@ Imports: ggplot2,
     tidyverse,
     ggrepel,
     tibble,
-    purrr
+    purrr, 
+    rioja,
+    fields
 Enhances: analogue,
-    palaeoSig,
-    rioja
+    palaeoSig
     
