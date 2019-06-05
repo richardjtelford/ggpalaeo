@@ -20,7 +20,9 @@
 ##'     subsets = c(1,.5,.1), k = 5)
 ##' autoplot(arctic.rne)
 ##' @export
-##' @importFrom ggplot2 aes_string autoplot ggplot geom_point geom_line coord_cartesian fortify scale_shape_manual scale_linetype_manual scale_colour_manual labs theme
+##' @importFrom ggplot2 aes autoplot ggplot geom_point geom_line coord_cartesian fortify scale_shape_manual scale_linetype_manual scale_colour_manual labs theme
+##' @importFrom purrr map_df
+##' @importFrom tibble tibble
 ##' @importFrom ggrepel geom_text_repel
 ##'
 
@@ -32,11 +34,20 @@ fortify.RNE <- function(object, which = 1, unit = ""){
     names(random) <- c("prop", "r2")
     random$prop <- 1 - random$prop
 
-    neighbour <- sapply(object$neigh, function(b) c(neighbour = b$neighbour, prop = b$effn, r2 = b$hb.r2[which]))
-    environ <- sapply(object$neigh, function(b) c(neighbour = b$neighbour, prop = b$effn, r2 = b$eb.r2[which]))
-    neighbour <- as.data.frame(t(neighbour))
-    environ <- as.data.frame(t(environ))
-    fort <- bind_rows(random = random, neighbour = neighbour, environ = environ, .id = "type")
+    neighbour <- map_df(
+      object$neigh,
+      ~tibble(neighbour = .$neighbour, prop = .$effn, r2 = .$hb.r2[which])
+    )
+    environ <- map_df(
+      object$neigh,
+      ~tibble(neighbour = .$neighbour, prop = .$effn, r2 = .$eb.r2[which])
+    )
+    fort <- bind_rows(
+      random = random,
+      neighbour = neighbour,
+      environ = environ,
+      .id = "type"
+    )
     fort$neighbour <- paste(fort$neighbour, unit)
     fort$type <- factor(fort$type, levels = c("random", "environ", "neighbour"))
     return(fort)
@@ -49,7 +60,10 @@ autoplot.RNE <- function(object, which = 1, ylim, unit = "km"){
   if (missing(ylim)){
     ylim <- range(fort[fort$type != "environ", "r2"])
   }
-  g <-  ggplot(fort, aes_string(x = "prop", y = "r2", colour = "type", shape = "type", linetype = "type", label = "neighbour")) +
+  g <-  ggplot(fort,
+               aes(x = .data$prop, y = .data$r2,
+                   colour = .data$type, shape = .data$type,
+                   linetype = .data$type, label = .data$neighbour)) +
     geom_line() +
     geom_point(fill = "white") +
     geom_text_repel(data = fort[fort$type == "neighbour", ], hjust = "right") +

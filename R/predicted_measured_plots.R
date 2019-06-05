@@ -105,7 +105,8 @@ autoplot.MLRC <- function(object, ...){
 
 ##' @rdname autoplot.WA
 ##'
-autoplot_tf <- function(object, show_apparent = FALSE, residuals = FALSE, smooth = TRUE, ...){
+autoplot_tf <- function(object, show_apparent = FALSE, residuals = FALSE,
+                        smooth = TRUE, ...){
   x <- fortify(object = object, ...)
 
   if(residuals){
@@ -117,7 +118,9 @@ autoplot_tf <- function(object, show_apparent = FALSE, residuals = FALSE, smooth
      g <- x %>% gather(key = "what", value = "predicted", -.data$measured) %>%
        filter(.data$what %in% c("fitted", "predicted")) %>%
        ggplot(aes_string(x = "measured", y = "predicted")) +
-       facet_wrap(~ what, labeller = as_labeller(c(fitted = "Apparent", predicted = "Cross-validated")))
+       facet_wrap(~ what,
+                  labeller = as_labeller(
+                    c(fitted = "Apparent", predicted = "Cross-validated")))
     } else {
       g <- ggplot(x, aes_string(x = "measured", y = "predicted"))
     }

@@ -55,7 +55,10 @@ fortify.residLen <- function(object, df){
 
 ##' @rdname autoplot.residLen
 ##' @export
-autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor")){
+autoplot.residLen <- function(object, df, x_axis,
+                              quantiles = c(0.9, 0.95),
+                              fill = c("salmon", "lightyellow", "skyblue"),
+                              categories = c("Good", "Fair", "Poor")){
 
   if(!length(fill) == length(categories)) {
     stop("Must have the same number of colours in fill as categories")
@@ -72,5 +75,12 @@ autoplot.residLen <- function(object, df, x_axis, quantiles = c(0.9, 0.95), fill
   goodpoorbad <- filter(x, x$what == "train")$sq_res_len %>%
     quantile(probs = quantiles)
 
-  plot_diagnostics(x = filter(x, x$what == "passive"), x_axis = x_axis, y_axis = "sq_res_len", goodpoorbad = goodpoorbad, fill = fill, categories = categories)
+  plot_diagnostics(
+    x = filter(x, x$what == "passive"),
+    x_axis = x_axis,
+    y_axis = "sq_res_len",
+    goodpoorbad = goodpoorbad,
+    fill = fill,
+    categories = categories
+  )
 }

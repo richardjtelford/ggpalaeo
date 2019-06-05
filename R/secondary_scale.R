@@ -24,18 +24,23 @@
 #' secondary.scale(yvar = chron$Depth, yvar2 = chron$Age, n = 5, y.rev = TRUE, ylabel2 = "Years")
 #' @export
 
-secondary.scale <- function(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE, xLeft = 0.11, yBottom = 0.07, yTop = 0.8, ylabel2 = "", cex.ylabel2 = 1){
+secondary.scale <- function(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE,
+                            xLeft = 0.11, yBottom = 0.07, yTop = 0.8,
+                            ylabel2 = "", cex.ylabel2 = 1){
   if (is.null(ylim)){
-    ylim = range(yvar, na.rm = TRUE)
+    ylim <- range(yvar, na.rm = TRUE)
   }
   if (y.rev) {
     ylim <- rev(ylim)
   }
 
-  orig.fig = par("fig")
+  orig.fig <- par("fig")
   agedepth <- approx(yvar2, yvar, xout = pretty(yvar2, n = n))
   par(mai = c(0, 0, 0, 0))
-  par(fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), yBottom, yTop)), new = TRUE)
+  par(
+    fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), yBottom, yTop)),
+    new = TRUE
+    )
 
 
   plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r", ylim = ylim)

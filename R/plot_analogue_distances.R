@@ -24,7 +24,7 @@
 ##'
 ##' @export
 ##'
-##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify scale_fill_manual
+##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes fortify scale_fill_manual
 ##' @importFrom dplyr data_frame bind_cols mutate n
 ##' @importFrom magrittr %>%
 ##' @importFrom rioja MAT
@@ -36,14 +36,15 @@
 ##'## squared residual lengths for Core V12.122
 ##'AD <- analogue_distances(ImbrieKipp, V12.122)
 ##'autoplot(AD) +
-##'  labs(y = "Squared-chord distance")
+##'  labs(y = "Squared-chord distance", x = "n")
 ##' @export
 NULL
 
 ##' @name analogue_distances
 ##' @rdname analogue_distances
 ##' @export
-analogue_distances <- function(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), ...){
+analogue_distances <- function(spp, fos, df, x_axis,
+                               quantiles = c(0.05, 0.1), ...){
 
   mod <- MAT(y = spp, x = rep(1, nrow(spp)), lean = FALSE, ...)
   pred <- predict(mod, fos)
@@ -63,7 +64,14 @@ analogue_distances <- function(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), .
 ##' @name analogue_distances
 ##' @rdname analogue_distances
 ##' @export
-autoplot.analogue_distances <- function(object, df, x_axis, fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good", "Fair", "Poor"), ...){
+autoplot.analogue_distances <- function(object,
+                                        df,
+                                        x_axis,
+                                        fill = c("salmon", "lightyellow",
+                                                 "skyblue"),
+                                        categories = c("Good", "Fair", "Poor"),
+                                        ...) {
+
 
   x <- object$x
 
@@ -73,10 +81,14 @@ autoplot.analogue_distances <- function(object, df, x_axis, fill = c("salmon", "
   if(missing(x_axis)){
     x_axis <- "n"
   }
-  plot_diagnostics(x = x, x_axis = x_axis, y_axis = "minD", goodpoorbad = object$goodpoorbad, fill = fill, categories = categories)
+  plot_diagnostics(x = x, x_axis = x_axis, y_axis = "minD",
+                   goodpoorbad = object$goodpoorbad,
+                   fill = fill, categories = categories)
 }
 
-plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad, fill = c("salmon", "lightyellow", "skyblue"), categories){
+plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad,
+                             fill = c("salmon", "lightyellow", "skyblue"),
+                             categories){
 
   if(!length(fill) == length(categories)) {
     stop("Must have the same number of colours in fill as categories")
@@ -93,8 +105,11 @@ plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad, fill = c("salmon", 
     fill = factor(categories, levels = rev(categories))
   )
 
-  g <- ggplot(x, aes_string(x = x_axis, y  = y_axis)) +
-    geom_rect(aes_string(xmin = "xmin", xmax = "xmax", ymin = "ymin", ymax = "ymax", fill = "fill"), qualitybands, alpha = .5, inherit.aes = FALSE) +
+  g <- ggplot(x, aes(x = .data[[x_axis]], y  = .data[[y_axis]])) +
+    geom_rect(
+      aes(xmin = .data$xmin, xmax = .data$xmax,
+          ymin = .data$ymin, ymax = .data$ymax, fill = .data$fill),
+      qualitybands, alpha = .5, inherit.aes = FALSE) +
     scale_fill_manual(values = fill, name = "Quality") +
     geom_point()
   return(g)

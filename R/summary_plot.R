@@ -20,6 +20,7 @@
 #'
 #' @importFrom rioja figCnvt
 #' @importFrom graphics axis mtext par plot polygon text
+#' @importFrom purrr walk
 #' @importFrom RColorBrewer brewer.pal
 #' @examples
 #'  library(rioja)
@@ -45,7 +46,10 @@
 #'  summary_plot(g = g, yvar = chron$Depth, y.rev = TRUE, xLeft = 0.8)
 #' @export
 
-summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRight = 1, yBottom = 0.07, yTop = 0.8, y.axis = FALSE, ylabel = "", cex.ylabel = 1, x.name.pos, srt.xlabel = 90, cex.xlabel = 1, fill){
+summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE,
+                         xLeft = 0.8, xRight = 1, yBottom = 0.07, yTop = 0.8,
+                         y.axis = FALSE, ylabel = "", cex.ylabel = 1,
+                         x.name.pos, srt.xlabel = 90, cex.xlabel = 1, fill){
   if(nrow(g) != length(yvar)){
     stop("Length of yvar must equal number of rows in g")
   }
@@ -56,7 +60,7 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRigh
     stop("Length of fill must equal number of columns in g")
   }
   if (is.null(ylim)){
-    ylim = range(yvar, na.rm = TRUE)
+    ylim <- range(yvar, na.rm = TRUE)
   }
   if (y.rev) {
     ylim <- rev(ylim)
@@ -69,16 +73,20 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRigh
     } else {
       row <- which.max(yvar)
     }
-    x.name.pos <- cumsum(c(0, g[row, ]))[1:ncol(g)] + g[row, ]/2
+    x.name.pos <- cumsum(c(0, g[row, ]))[seq_len(ncol(g))] + g[row, ]/2
   }
 
   xlim <- c(0, max(rowSums(g)))
 
-  orig.fig = par("fig")
+  orig.fig <- par("fig")
   par(mai = c(0, 0, 0, 0))
-  par(fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), yBottom, yTop)), new = TRUE)
+  par(
+    fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), yBottom, yTop)),
+    new = TRUE
+  )
 
-  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r", ylim = ylim, xlim = xlim)
+  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r",
+       ylim = ylim, xlim = xlim)
 
   if(isTRUE(y.axis)){
     axis(side = 2, las= 2, xpd = NA)
@@ -86,7 +94,7 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRigh
   }
   axis(1)
   g <- cbind(zero = 0, g)
-  sapply(2:ncol(g), function(n){
+  walk(2:ncol(g), function(n){
     start <- rowSums(g[, 1:(n - 1), drop = FALSE])
     end <- rowSums(g[, 1:n, drop = FALSE])
     polygon(y = c(yvar, rev(yvar)), x = c(start, rev(end)), col = fill[n - 1])
@@ -100,7 +108,10 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8, xRigh
     pos <- usr1[4] - r
   }
   pos <- rep(pos, length(x.name.pos))
-  text(x.name.pos, pos, labels = x.names, adj = c(0, 0.5), srt = srt.xlabel, cex = cex.xlabel, xpd = NA)
+  text(x.name.pos, pos,
+       labels = x.names, adj = c(0, 0.5),
+       srt = srt.xlabel, cex = cex.xlabel, xpd = NA
+       )
   par("fig" = orig.fig) #reset "fig"
   invisible()
 }
