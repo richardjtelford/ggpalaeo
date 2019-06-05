@@ -1,4 +1,4 @@
-#' secondary.scale
+#' secondary_scale
 #' @title Secondary scale for strat.plot
 #' @description Adds a secondary scale for \code{\link[rioja]{strat.plot}}
 #' @param yvar y variable. Same as main plot.
@@ -21,10 +21,10 @@
 #' chron <- RLGH$depths
 #' strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .22, scale.percent = TRUE)
 
-#' secondary.scale(yvar = chron$Depth, yvar2 = chron$Age, n = 5, y.rev = TRUE, ylabel2 = "Years")
+#' secondary_scale(yvar = chron$Depth, yvar2 = chron$Age, n = 5, y.rev = TRUE, ylabel2 = "Years")
 #' @export
 
-secondary.scale <- function(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE,
+secondary_scale <- function(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE,
                             xLeft = 0.11, yBottom = 0.07, yTop = 0.8,
                             ylabel2 = "", cex.ylabel2 = 1){
   if (is.null(ylim)){
