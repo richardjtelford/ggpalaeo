@@ -46,7 +46,7 @@ data(ImbrieKipp, V12.122, package = "analogue")
 ## squared residual lengths for Core V12.122
 AD <- analogue_distances(ImbrieKipp, V12.122)
 autoplot(AD) +
- labs(y = "Squared-chord distance")
+ labs(y = "Squared-chord distance", x = "n")
 }
 \author{
 Richard J. Telford
