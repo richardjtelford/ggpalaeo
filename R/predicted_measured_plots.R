@@ -18,7 +18,7 @@
 ##' autoplot(mod)
 ##' @export
 ##' @importFrom ggplot2 ggplot aes_string geom_point geom_smooth facet_wrap geom_abline geom_hline coord_equal as_labeller fortify
-##' @importFrom dplyr data_frame
+##' @importFrom dplyr tibble
 ##' @importFrom tidyr gather
 ##' @importFrom magrittr %>%
 ##' @importFrom rlang .data
@@ -48,7 +48,7 @@ fortify.MLRC <- function(object){
 ##' @export
 fortify.MAT <- function(object, k = 5, weighted = FALSE){
   column <- paste0("N", ifelse(k > 10, "", "0"), k, ifelse(weighted, ".wm", ""))
-  x <- data_frame(
+  x <- tibble(
     measured = object$x,
     predicted = object$fitted.values[, column],
     residuals = .data$predicted - .data$measured
@@ -62,7 +62,7 @@ fortify.MAT <- function(object, k = 5, weighted = FALSE){
 ##' @rdname autoplot.WA
 ##'
 fortify_tf <- function(object, column){
-  x <- data_frame(
+  x <- tibble(
     measured = object$x,
     fitted = object$fitted.values[, column]
     )

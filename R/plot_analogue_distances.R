@@ -25,7 +25,7 @@
 ##' @export
 ##'
 ##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes fortify scale_fill_manual
-##' @importFrom dplyr data_frame bind_cols mutate n
+##' @importFrom dplyr tibble bind_cols mutate n
 ##' @importFrom magrittr %>%
 ##' @importFrom rioja MAT
 ##' @importFrom stats as.dist quantile predict
@@ -53,7 +53,7 @@ analogue_distances <- function(spp, fos, df, x_axis,
     as.dist() %>%
     quantile(probs = quantiles)
 
-  x <- data_frame(minD = pred$diagnostics$minD) %>%
+  x <- tibble(minD = pred$diagnostics$minD) %>%
     mutate(n = 1:n())
 
   res <- list(x = x, goodpoorbad = goodpoorbad, quantiles = quantiles)
@@ -97,7 +97,7 @@ plot_diagnostics <- function(x, x_axis, y_axis, goodpoorbad,
     stop("Must have one more category than quantile")
   }
 
-  qualitybands <- data_frame(
+  qualitybands <- tibble(
     xmin = rep(-Inf, length(categories)),
     xmax = rep(Inf, length(categories)),
     ymax = c(goodpoorbad, Inf),

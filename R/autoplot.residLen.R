@@ -19,8 +19,8 @@
 ##'
 ##' @export
 ##'
-##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes_string fortify
-##' @importFrom dplyr filter data_frame bind_cols bind_rows n
+##' @importFrom ggplot2 autoplot ggplot geom_point geom_rect ylab aes fortify
+##' @importFrom dplyr filter tibble bind_cols bind_rows n
 ##' @importFrom magrittr %>%
 ##' @importFrom stats quantile
 ##' @examples
@@ -38,7 +38,7 @@ NULL
 ##' @export
 fortify.residLen <- function(object, df){
 
-  passive <- data_frame(sq_res_len = object$passive)
+  passive <- tibble(sq_res_len = object$passive)
 
   if(!missing(df)){
     passive <- bind_cols(df, passive)
@@ -46,7 +46,7 @@ fortify.residLen <- function(object, df){
     passive <- passive %>% mutate(n = 1:n())
   }
 
-  train <- data_frame(sq_res_len = object$train)
+  train <- tibble(sq_res_len = object$train)
 
   passive_train <- bind_rows(passive = passive, train = train, .id = "what")
 
