@@ -4,26 +4,20 @@
 \alias{summary_plot}
 \title{Secondary scale for strat.plot}
 \usage{
-summary_plot(g, yvar, ylim = NULL, y.rev = FALSE, xLeft = 0.8,
-  xRight = 1, yBottom = 0.07, yTop = 0.8, y.axis = FALSE, ylabel = "",
-  cex.ylabel = 1, x.name.pos, srt.xlabel = 90, cex.xlabel = 1, fill)
+summary_plot(x, g, yvar, xLeft = 0.8, xRight = 1, y.axis = FALSE,
+  ylabel = "", cex.ylabel = 1, x.name.pos, srt.xlabel = 90,
+  cex.xlabel = 1, fill)
 }
 \arguments{
+\item{x}{a stratigraphic diagram object produced by strat.plot.}
+
 \item{g}{matrix or data.frame with summary groups. Column names will be used as labels.}
 
 \item{yvar}{y variable. Same as main plot.}
 
-\item{ylim}{y limits. Defaults to range of data.}
-
-\item{y.rev}{logical. Reverse y-axis. Do as in main plot.}
-
 \item{xLeft}{Position of plot. See \code{\link[rioja]{strat.plot}}}
 
 \item{xRight}{ditto}
-
-\item{yBottom}{ditto}
-
-\item{yTop}{ditto}
 
 \item{y.axis}{ditto}
 
@@ -64,7 +58,7 @@ secondary.scale
     })
 
 
- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .1, xRight = 0.8, scale.percent = TRUE)
+ pt <- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .1, xRight = 0.8, scale.percent = TRUE)
 
- summary_plot(g = g, yvar = chron$Depth, y.rev = TRUE, xLeft = 0.8)
+ summary_plot(pt, g = g, yvar = chron$Depth, xLeft = 0.8)
 }

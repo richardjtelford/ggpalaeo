@@ -2,14 +2,11 @@
 #' @title Secondary scale for strat.plot
 #' @description Adds a secondary scale for \code{\link[rioja]{strat.plot}}
 #'
+#' @param x	a stratigraphic diagram object produced by strat.plot.
 #' @param g matrix or data.frame with summary groups. Column names will be used as labels.
 #' @param yvar y variable. Same as main plot.
-#' @param ylim y limits. Defaults to range of data.
-#' @param y.rev logical. Reverse y-axis. Do as in main plot.
 #' @param xLeft Position of plot. See \code{\link[rioja]{strat.plot}}
 #' @param xRight ditto
-#' @param yBottom ditto
-#' @param yTop ditto
 #' @param y.axis ditto
 #' @param ylabel ditto
 #' @param cex.ylabel ditto
@@ -41,13 +38,13 @@
 #'     })
 #'
 #'
-#'  strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .1, xRight = 0.8, scale.percent = TRUE)
+#'  pt <- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .1, xRight = 0.8, scale.percent = TRUE)
 #'
-#'  summary_plot(g = g, yvar = chron$Depth, y.rev = TRUE, xLeft = 0.8)
+#'  summary_plot(pt, g = g, yvar = chron$Depth, xLeft = 0.8)
 #' @export
 
-summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE,
-                         xLeft = 0.8, xRight = 1, yBottom = 0.07, yTop = 0.8,
+summary_plot <- function(x, g, yvar,
+                         xLeft = 0.8, xRight = 1,
                          y.axis = FALSE, ylabel = "", cex.ylabel = 1,
                          x.name.pos, srt.xlabel = 90, cex.xlabel = 1, fill){
   if(nrow(g) != length(yvar)){
@@ -59,16 +56,11 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE,
   if(ncol(g) != length(fill)){
     stop("Length of fill must equal number of columns in g")
   }
-  if (is.null(ylim)){
-    ylim <- range(yvar, na.rm = TRUE)
-  }
-  if (y.rev) {
-    ylim <- rev(ylim)
-  }
+
   #x.names
   x.names <- colnames(g)
   if(missing(x.name.pos)){
-    if(y.rev){
+    if(x$y.rev){
       row <- which.min(yvar)
     } else {
       row <- which.max(yvar)
@@ -81,12 +73,12 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE,
   orig.fig <- par("fig")
   par(mai = c(0, 0, 0, 0))
   par(
-    fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), yBottom, yTop)),
+    fig = figCnvt(orig.fig, c(xLeft, min(xLeft + 0.4, 0.9), x$box["yBottom"], x$box["yTop"])),
     new = TRUE
   )
 
   plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r",
-       ylim = ylim, xlim = xlim)
+       ylim = x$ylim, xlim = xlim)
 
   if(isTRUE(y.axis)){
     axis(side = 2, las= 2, xpd = NA)
@@ -104,7 +96,7 @@ summary_plot <- function(g, yvar, ylim = NULL, y.rev = FALSE,
 
   r <- (usr1[4] - usr1[3]) * 0.01
   pos <- usr1[4] + r
-  if (y.rev){
+  if (x$y.rev){
     pos <- usr1[4] - r
   }
   pos <- rep(pos, length(x.name.pos))
