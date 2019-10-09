@@ -3,7 +3,6 @@
 \name{autoplot.residLen}
 \alias{autoplot.residLen}
 \alias{fortify.residLen}
-\alias{autoplot.residLen}
 \title{ggplot-based plot for objects of class \code{'reslen'}}
 \usage{
 \method{fortify}{residLen}(object, df)
