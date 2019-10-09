@@ -4,30 +4,27 @@
 \alias{secondary_scale}
 \title{Secondary scale for strat.plot}
 \usage{
-secondary_scale(yvar, yvar2, ylim = NULL, n = 5, y.rev = FALSE,
-  xLeft = 0.11, yBottom = 0.07, yTop = 0.8, ylabel2 = "",
-  cex.ylabel2 = 1)
+secondary_scale(x, yvar, yvar2, n = 5, xLeft = 0.11, ylabel2 = "",
+  cex.ylabel2 = 1, cex.yaxis = 0.8)
 }
 \arguments{
+\item{x}{a stratigraphic diagram object produced by strat.plot.}
+
 \item{yvar}{y variable. Same as main plot.}
 
 \item{yvar2}{Secondary y variable}
 
-\item{ylim}{y limits. Defaults to range of data.}
-
 \item{n}{Suggested number of labels on secondary y axis. Defaults to five.}
 
-\item{y.rev}{logical. Reverse y-axis. Do as in main plot.}
-
 \item{xLeft}{Position of plot. See \code{\link[rioja]{strat.plot}}}
-
-\item{yBottom}{ditto}
-
-\item{yTop}{ditto}
 
 \item{ylabel2}{character. Label for secondary scale}
 
 \item{cex.ylabel2}{numeric. Size of axis label.}
+
+\item{cex.yaxis}{numeric. Size of axis values.}
+
+\item{ylim}{y limits. Defaults to range of data.}
 }
 \description{
 Adds a secondary scale for \code{\link[rioja]{strat.plot}}
@@ -40,6 +37,6 @@ library(rioja)
 data(RLGH)
 fos <- RLGH$spec
 chron <- RLGH$depths
-strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .22, scale.percent = TRUE)
-secondary_scale(yvar = chron$Depth, yvar2 = chron$Age, n = 5, y.rev = TRUE, ylabel2 = "Years")
+pt <- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .22, scale.percent = TRUE)
+secondary_scale(pt, yvar = chron$Depth, yvar2 = chron$Age, n = 5, ylabel2 = "Years")
 }
