@@ -7,7 +7,8 @@
 species_to_italics(x, families = TRUE, modifiers = c("spp", "sp", "fo",
   "var", "agg"), postfix = c("-type", "-t"), etc = character(0),
   first_with_dot_only = TRUE, first_capital_only = TRUE,
-  no_numbers = TRUE, no_extra_capitals = TRUE, text = TRUE)
+  no_numbers = TRUE, no_extra_capitals = TRUE,
+  not_after_capital = TRUE, text = TRUE)
 }
 \arguments{
 \item{x}{character; one or more species names to be italicised}
@@ -28,10 +29,18 @@ species_to_italics(x, families = TRUE, modifiers = c("spp", "sp", "fo",
 
 \item{no_extra_capitals}{logical; if TRUE any words with capitals other than first letter are not italicised}
 
+\item{not_after_capital}{logical; if TRUE, nothing after first extra capital is capitalised}
+
 \item{text}{logical; TRUE gives output as character vector; FALSE gives list of expressions}
+}
+\value{
+A character vector if ``text` is TRUE, otherwise a list of expressions.
 }
 \description{
 Italicises species names, but not modifiers such as "var."
+}
+\details{
+Uses various heuristics to identify which parts of the name should be italicised and which should not. Should identify authority (if present) by the presence of the capital letter. Will probably fail with informal names unless included in `etc`.
 }
 \examples{
 species_to_italics(c("Navicula spp.", "Navicula spp", "Poaceae"))
