@@ -28,7 +28,7 @@
 #'                species_to_italics,
 #'                default = label_parsed))
 #' @importFrom stringr str_split str_detect str_replace_all str_remove_all str_replace
-#' @importFrom purrr pluck map map_chr
+#' @importFrom purrr map map_chr
 #' @importFrom dplyr case_when
 #' @importFrom magrittr %>%
 #' @export
@@ -56,18 +56,17 @@ species_to_italics <- function(
                          first_capital_only,
                          no_numbers,
                          no_extra_capitals){
-    #escape problem characters
-    problem <- "([~\\[\\]\\*\\+\\?\\,])"
-    xx <- str_replace_all(xx, problem, "*'\\1'*" )
-
-    #Split string
-    xx <- xx %>% str_split(" ") %>% pluck(1)
-
-    #remove any leading/trailing ~*
-    xx <- str_remove_all(xx, "^[~\\*]+|[~\\*]+$")
 
     #position nr
     n <- seq_along(xx)
+
+    #remove any leading/trailing ~*
+    xx <- xx %>%
+      str_remove_all("^[~\\*]+|[~\\*]+$")
+
+    #detect extra capitals
+    extra_capitals <- str_which(xx, "[A-Z]")
+    extra_capitals <- extra[extra > 1]
 
     #italicise as required
     xx <- case_when(
@@ -84,6 +83,16 @@ species_to_italics <- function(
 
     return(xx)
   }
+
+  #problem characters
+  problem <- "([~\\[\\]\\*\\+\\?\\,])"
+
+  #prepare characters vector
+  x <- x %>%
+    #escape problem characters
+    str_replace_all(pattern = problem, replacement = "*'\\1'*" ) %>%
+    #Split string
+    str_split(" ")
 
   result <- map_chr(x, italisiser,
                     families = families,
