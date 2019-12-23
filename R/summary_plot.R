@@ -21,7 +21,7 @@
 #' @importFrom RColorBrewer brewer.pal
 #' @examples
 #'  library(rioja)
-#'  library(tidyverse)
+#'  library(dplyr)
 #'  data(RLGH)
 #'  fos <- RLGH$spec
 #'  chron <- RLGH$depths
@@ -38,7 +38,8 @@
 #'     })
 #'
 #'
-#'  pt <- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE, xLeft = .1, xRight = 0.8, scale.percent = TRUE)
+#'  pt <- strat.plot(fos, yvar = chron$Depth, y.rev = TRUE,
+#'                   xLeft = .1, xRight = 0.8, scale.percent = TRUE)
 #'
 #'  summary_plot(pt, g = g, yvar = chron$Depth, xLeft = 0.8)
 #' @export

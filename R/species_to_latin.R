@@ -4,7 +4,6 @@
 #' @param families logical; should family names be italicised
 #' @param modifiers character; vector of taxonomic terms not to italicise
 #' @param etc character; vector of other words that should not be italicised
-#' @param modifiers_with_dot logical, should modifiers end in a dot. Use NA to accept modifiers either with or without a trailing dot.
 #' @param postfix character; text appended to species names that should not be italicised
 #' @param first_with_dot_only logical;
 #' @param first_capital_only logical; if TRUE only the first word starting with a capital letter is italicised
@@ -14,6 +13,8 @@
 #' @examples
 #' species_to_italics(c("Navicula spp.", "Navicula spp", "Poaceae"))
 #' library(ggplot2)
+#' library(dplyr)
+#' library(tidyr)
 #' data(SWAP, package = "rioja")
 #' SWAP$spec %>% mutate(pH = SWAP$pH) %>%
 #' pivot_longer(cols = -pH, names_to = "taxa", values_to = "percent") %>%

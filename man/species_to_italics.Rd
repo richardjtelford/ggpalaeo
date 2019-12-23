@@ -29,8 +29,6 @@ species_to_italics(x, families = TRUE, modifiers = c("spp", "sp", "fo",
 \item{no_extra_capitals}{logical; if TRUE any words with capitals other than first letter are not italicised}
 
 \item{text}{logical; TRUE gives output as character vector; FALSE gives list of expressions}
-
-\item{modifiers_with_dot}{logical, should modifiers end in a dot. Use NA to accept modifiers either with or without a trailing dot.}
 }
 \description{
 Italicises species names, but not modifiers such as "var."
@@ -38,6 +36,8 @@ Italicises species names, but not modifiers such as "var."
 \examples{
 species_to_italics(c("Navicula spp.", "Navicula spp", "Poaceae"))
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 data(SWAP, package = "rioja")
 SWAP$spec \%>\% mutate(pH = SWAP$pH) \%>\%
 pivot_longer(cols = -pH, names_to = "taxa", values_to = "percent") \%>\%
