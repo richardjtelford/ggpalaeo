@@ -4,7 +4,6 @@
 #' @param x	a stratigraphic diagram object produced by strat.plot.
 #' @param yvar y variable. Same as main plot.
 #' @param yvar2 Secondary y variable
-#' @param ylim y limits. Defaults to range of data.
 #' @param n Suggested number of labels on secondary y axis. Defaults to five.
 #' @param xLeft Position of plot. See \code{\link[rioja]{strat.plot}}
 #' @param ylabel2 character. Label for secondary scale

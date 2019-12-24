@@ -23,8 +23,6 @@ secondary_scale(x, yvar, yvar2, n = 5, xLeft = 0.11, ylabel2 = "",
 \item{cex.ylabel2}{numeric. Size of axis label.}
 
 \item{cex.yaxis}{numeric. Size of axis values.}
-
-\item{ylim}{y limits. Defaults to range of data.}
 }
 \description{
 Adds a secondary scale for \code{\link[rioja]{strat.plot}}
