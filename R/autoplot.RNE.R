@@ -1,4 +1,3 @@
-##' @rdname autoplot.RNE
 ##' @title autoplot for palaeosig rne
 ##' @description Plots of r2 against fraction of sites deleted randomly, by neighbourhood or by environmental similarity.
 ##' @param object RNE object from palaeosig

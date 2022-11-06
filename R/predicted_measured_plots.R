@@ -1,4 +1,3 @@
-##' @rdname autoplot.WA
 ##' @title autoplot for rioja transfer functions
 ##' @description Plots of predicted against measured environmental variables for transfer functions made with the rioja package.
 ##' @param object transfer function object from rioja

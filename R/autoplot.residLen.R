@@ -1,5 +1,4 @@
 ##' @name autoplot.residLen
-##' @rdname autoplot.residLen
 ##' @title ggplot-based plot for objects of class \code{'reslen'}
 ##'
 ##' @description
