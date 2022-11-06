@@ -1,5 +1,9 @@
 # ggpalaeo: diagnostic plots for rioja and analogue objects using ggplot2
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/richardjtelford/ggpalaeo/workflows/R-CMD-check/badge.svg)](https://github.com/richardjtelford/ggpalaeo/actions)
+<!-- badges: end -->
+
 Install with 
 
 ```
