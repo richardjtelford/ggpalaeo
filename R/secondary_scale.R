@@ -33,7 +33,7 @@ secondary_scale <- function(
     new = TRUE
     )
 
-  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r", ylim = x$ylim)
+  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "i", ylim = x$ylim)
   axis(side = 2, at = agedepth$y, labels = agedepth$x,
        las= 2, xpd = NA,  cex.axis=cex.yaxis)
   mtext(ylabel2, side = 2, line = 2.5, cex = cex.ylabel2)
