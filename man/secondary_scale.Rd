@@ -4,8 +4,16 @@
 \alias{secondary_scale}
 \title{Secondary scale for strat.plot}
 \usage{
-secondary_scale(x, yvar, yvar2, n = 5, xLeft = 0.11, ylabel2 = "",
-  cex.ylabel2 = 1, cex.yaxis = 0.8)
+secondary_scale(
+  x,
+  yvar,
+  yvar2,
+  n = 5,
+  xLeft = 0.11,
+  ylabel2 = "",
+  cex.ylabel2 = 1,
+  cex.yaxis = 0.8
+)
 }
 \arguments{
 \item{x}{a stratigraphic diagram object produced by strat.plot.}

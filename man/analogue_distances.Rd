@@ -7,9 +7,14 @@
 \usage{
 analogue_distances(spp, fos, df, x_axis, quantiles = c(0.05, 0.1), ...)
 
-\method{autoplot}{analogue_distances}(object, df, x_axis,
-  fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",
-  "Fair", "Poor"), ...)
+\method{autoplot}{analogue_distances}(
+  object,
+  df,
+  x_axis,
+  fill = c("salmon", "lightyellow", "skyblue"),
+  categories = c("Good", "Fair", "Poor"),
+  ...
+)
 }
 \arguments{
 \item{spp}{data.frame or matrix of calibration set species abundances}

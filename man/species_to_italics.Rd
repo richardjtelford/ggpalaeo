@@ -4,11 +4,19 @@
 \alias{species_to_italics}
 \title{Italicise species names}
 \usage{
-species_to_italics(x, families = TRUE, modifiers = c("spp", "sp", "fo",
-  "var", "agg"), postfix = c("-type", "-t"), etc = character(0),
-  first_with_dot_only = TRUE, first_capital_only = TRUE,
-  no_numbers = TRUE, no_extra_capitals = TRUE,
-  not_after_capital = TRUE, text = TRUE)
+species_to_italics(
+  x,
+  families = TRUE,
+  modifiers = c("spp", "sp", "fo", "var", "agg"),
+  postfix = c("-type", "-t"),
+  etc = character(0),
+  first_with_dot_only = TRUE,
+  first_capital_only = TRUE,
+  no_numbers = TRUE,
+  no_extra_capitals = TRUE,
+  not_after_capital = TRUE,
+  text = TRUE
+)
 }
 \arguments{
 \item{x}{character; one or more species names to be italicised}

@@ -7,9 +7,14 @@
 \usage{
 \method{fortify}{residLen}(object, df)
 
-\method{autoplot}{residLen}(object, df, x_axis, quantiles = c(0.9, 0.95),
-  fill = c("salmon", "lightyellow", "skyblue"), categories = c("Good",
-  "Fair", "Poor"))
+\method{autoplot}{residLen}(
+  object,
+  df,
+  x_axis,
+  quantiles = c(0.9, 0.95),
+  fill = c("salmon", "lightyellow", "skyblue"),
+  categories = c("Good", "Fair", "Poor")
+)
 }
 \arguments{
 \item{object}{an object of class \code{"residLen"}, the result of a call to \code{\link[analogue]{residLen}}}

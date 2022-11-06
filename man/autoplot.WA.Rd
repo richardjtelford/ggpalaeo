@@ -31,8 +31,13 @@ fortify_tf(object, column)
 
 \method{autoplot}{MLRC}(object, ...)
 
-autoplot_tf(object, show_apparent = FALSE, residuals = FALSE,
-  smooth = TRUE, ...)
+autoplot_tf(
+  object,
+  show_apparent = FALSE,
+  residuals = FALSE,
+  smooth = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{transfer function object from rioja}

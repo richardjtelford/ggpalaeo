@@ -4,9 +4,20 @@
 \alias{summary_plot}
 \title{Secondary scale for strat.plot}
 \usage{
-summary_plot(x, g, yvar, xLeft = 0.8, xRight = 1, y.axis = FALSE,
-  ylabel = "", cex.ylabel = 1, x.name.pos, srt.xlabel = 90,
-  cex.xlabel = 1, fill)
+summary_plot(
+  x,
+  g,
+  yvar,
+  xLeft = 0.8,
+  xRight = 1,
+  y.axis = FALSE,
+  ylabel = "",
+  cex.ylabel = 1,
+  x.name.pos,
+  srt.xlabel = 90,
+  cex.xlabel = 1,
+  fill
+)
 }
 \arguments{
 \item{x}{a stratigraphic diagram object produced by strat.plot.}
