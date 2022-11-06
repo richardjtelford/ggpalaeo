@@ -23,7 +23,7 @@
 #' pivot_longer(cols = -pH, names_to = "taxa", values_to = "percent") %>%
 #'   left_join(as_tibble(SWAP$names), by = c("taxa" = "CODE")) %>%
 #'   group_by(taxa) %>%
-#'   filter(sum(percent > 0) > 60, max(percent > 20)) %>%
+#'   filter(sum(percent > 0) > 60, max(percent) > 20) %>%
 #'   ggplot(aes(x = pH, y = percent)) +
 #'   geom_point() +
 #'   facet_wrap(~TaxonName,
