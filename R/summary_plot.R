@@ -78,7 +78,7 @@ summary_plot <- function(x, g, yvar,
     new = TRUE
   )
 
-  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r",
+  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "i",
        ylim = x$ylim, xlim = xlim)
 
   if(isTRUE(y.axis)){

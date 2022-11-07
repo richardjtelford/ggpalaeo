@@ -33,7 +33,7 @@ plot_chron_info <- function(
     new = TRUE
     )
 
-  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "r", ylim = x$ylim, xlim = c(0, 10))
+  plot(0, type = "n", axes = FALSE, ann = FALSE, yaxs = "i", ylim = x$ylim, xlim = c(0, 10))
   rect(xleft = rep(9, nrow(dates)),
        xright = rep(10, nrow(dates)),
        ybottom = dates$down,
